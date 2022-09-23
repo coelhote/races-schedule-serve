@@ -16,7 +16,12 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+Route.group(() =>{
+    Route.resource('/blogs', 'BlogController').apiOnly()
+    Route.resource('/categories', 'CategoryController').apiOnly()
+}).middleware('auth').prefix('admin')
+
+Route.get('/', 'AppController.index')
+
 Route.post('/register', 'AuthController.register')
 Route.post('/authenticate', 'AuthController.authenticate')
-
-Route.get('/').middleware(["auth"]);
